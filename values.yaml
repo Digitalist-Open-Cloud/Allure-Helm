@@ -1,0 +1,72 @@
+---
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: {}
+deploymentAnnotations: {}
+
+api:
+  replicaCount: 1
+  image:
+    registry: docker.io
+    repository: frankescobar/allure-docker-service
+    tag: "2.27.0"
+    digest: ~
+    pullPolicy: Always
+  podAnnotations: {}
+  podSecurityContext:
+    fsGroup: 1000
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+  resources: {}
+  service:
+    type: ClusterIP
+    port: 5050
+  nodeSelector: {}
+  devMode: false
+
+ui:
+  replicaCount: 1
+  image:
+    registry: docker.io
+    repository: frankescobar/allure-docker-service-ui
+    tag: "7.0.3"
+    digest: ~
+    pullPolicy: Always
+  podAnnotations: {}
+  podSecurityContext: {}
+  securityContext: {}
+  resources: {}
+  service:
+    type: ClusterIP
+    port: 5252
+  nodeSelector: {}
+
+keepHistory: true
+keepHistoryLatest: 25
+updateFrequency: NONE
+securityEnabled: false
+publicViewerEndpoint: false
+apiCredentials:
+  SECURITY_USER: "admin"
+  SECURITY_PASS: "admin_pass"
+  SECURITY_VIEWER_USER: "viewer"
+  SECURITY_VIEWER_PASS: "viewer_pass"
+credentials: api-credentials
+
+persistence:
+  enabled: true
+  existingClaim: ""
+  storageClassName: ""
+  size: 5Gi
+  accessModes:
+    - ReadWriteOnce
+
+ingress:
+  enabled: false
+  annotations: {}
+  tls: true
+  existingSecret: ""
+  hostname: ""
+  ingressClassName: ""

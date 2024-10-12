@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "allure.fullname" . }}-ui
+  labels:
+    {{- include "allure-ui.labels" . | nindent 4 }}
+data:
+  #ALLURE_DOCKER_PUBLIC_API_URL: http://{{ include "allure.fullname" . }}-api:{{ .Values.api.service.port }}
+{{- with .Values.ingress }}
+  ALLURE_DOCKER_PUBLIC_API_URL: {{ .tls | ternary "https" "http" }}://{{ .hostname }}
+
+{{- end }}

@@ -1,0 +1,24 @@
+{{- if and (.Values.persistence.enabled) (not .Values.persistence.existingClaim) }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "allure.fullname" . }}-data
+  labels:
+    {{- include "allure-api.labels" . | nindent 4 }}
+{{- if .Values.persistence.annotations }}
+  annotations:
+{{ toYaml .Values.persistence.annotations | indent 4 }}
+{{- end }}
+spec:
+{{- with .Values.persistence }}
+  accessModes:
+    {{- toYaml .accessModes | nindent 4 }}
+  volumeMode: Filesystem
+  {{- if .storageClassName }}
+  storageClassName: {{ .storageClassName }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .size }}
+{{- end }}
+{{- end }}
