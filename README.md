@@ -20,8 +20,8 @@ This chart installs the following required components:
 
 To install the chart with the release name `my-release`:
 
-```bash
-$ helm install my-release .
+```sh
+helm install my-release .
 ```
 
 The command deploys the Allure reporting service and the required components on the Kubernetes cluster in the default configuration.
@@ -30,9 +30,8 @@ The command deploys the Allure reporting service and the required components on 
 
 To uninstall/delete the `my-release` deployment:
 
-```bash
-$ helm delete my-release
+```sh
+helm delete my-release
 ```
 
 The command removes all the Kubernetes components associated with the chart and deletes the release.
-
